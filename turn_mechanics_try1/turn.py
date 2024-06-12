@@ -80,6 +80,5 @@ def combat(player, enemy):
             time.sleep(0.5)
             continue
         
-player = Character("Emily", 100, 20, 2)
-enemy = Character("Bruhv", 100, 15, 1)
-combat(player, enemy)
+
+

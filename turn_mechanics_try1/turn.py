@@ -16,15 +16,23 @@ class Character:
         return self.health > 0
     
     def perform_attack(self, other):
-        other.health -= self.attack
-        print(f'{other.name} has taken {self.attack} DMG from {self.name}')
+        crit = random.randint(1, 10)
+        if crit == 10:
+            other.health -= self.attack*2
+            print(f'{other.name} has taken {self.attack*2} DMG from {self.name}')
+        if crit == 1:
+            other.health -= self.attack*0.5
+            print(f'{other.name} has taken {self.attack*0.5} DMG from {self.name}')
+        else:    
+            other.health -= self.attack
+            print(f'{other.name} has taken {self.attack} DMG from {self.name}')
     
     def heal(self):
         # STILL HAVE TO CAP MAX HP
         rand_heal = random.uniform(1/2, 2)
         healing = self.attack * rand_heal
         self.health += healing
-        print(f'{self.name} has healed for a total of {healing} HPs')
+        print(f'{self.name} has healed for a total of {int(healing)} HPs')
     
 def combat(player, enemy):
     while player.is_alive() and enemy.is_alive():
@@ -41,7 +49,7 @@ def combat(player, enemy):
                 enemy.perform_attack(player)
             else:
                 enemy.heal()
-                print(f'{enemy.name} has healed, {enemy.health} HPs left.')
+                print(f'{enemy.name} has healed, {int(enemy.health)} HPs left.')
             
         if player.is_alive and not enemy.is_alive():
             print("You WON!")
@@ -50,6 +58,6 @@ def combat(player, enemy):
         else:
             continue
         
-player = Character("Player", 100, 20)
-enemy = Character("Enemy", 100, 15)
+player = Character("Emily", 100, 20)
+enemy = Character("Bruhv", 100, 15)
 combat(player, enemy)

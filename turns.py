@@ -8,13 +8,26 @@
 ## adding gold with a SHOP system 
 ##adding ress system
 
+import os, sys
 import random 
 import time
+import winsound
 from character import *
-from playsound import playsound
+from city import *
 
-# Construct an absolute path
-win_audio_path = ("C:\\Users\\Nayrae\\Documents\\Programming\\python\\projects\\combat_game\\audio\\win.mp3")
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+win_audio_path = resource_path("win.wav")
+
+
 
 turn_count = 1
 
@@ -56,8 +69,8 @@ def combat(player, enemy):
             
         if player.is_alive and not enemy.is_alive():
             print("You WON!")
-            playsound(win_audio_path)
-            time.sleep(10)
+            winsound.PlaySound(win_audio_path, winsound.SND_FILENAME)
+            travel_to_village()
         elif not player.is_alive():
             print("You LOST!")
         else:
@@ -66,4 +79,4 @@ def combat(player, enemy):
             time.sleep(0.5)
             increment_turn()
             continue
-        
+       

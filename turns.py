@@ -11,6 +11,10 @@
 import random 
 import time
 from character import *
+from playsound import playsound
+
+# Construct an absolute path
+win_audio_path = ("C:\\Users\\Nayrae\\Documents\\Programming\\python\\projects\\combat_game\\audio\\win.mp3")
 
 turn_count = 1
 
@@ -52,6 +56,8 @@ def combat(player, enemy):
             
         if player.is_alive and not enemy.is_alive():
             print("You WON!")
+            playsound(win_audio_path)
+            time.sleep(10)
         elif not player.is_alive():
             print("You LOST!")
         else:

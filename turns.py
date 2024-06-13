@@ -5,48 +5,26 @@
 ## dont forget to make sure that turns work decently
 ## add different actions(block, magic, curse)
 ## add items(i'm switching heal to potions)
+## adding gold with a SHOP system 
+##adding ress system
+
 import random 
 import time
+from character import *
 
+turn_count = 1
 
-class Character:
-    def __init__(self, name, health, attack, healing_potions_count):
-        self.name = name
-        self.attack = attack
-        self.health = health
-        self.max_health = health #stores starting health
-        self.heal_pot_count = healing_potions_count
-        
-    def is_alive(self):
-        return self.health > 0
-    
-    def perform_attack(self, other):
-        crit = random.randint(1, 10)
-        if crit == 10:
-            other.health -= self.attack*2
-            print(f'{self.name} has dealt {self.attack*2} DMG to {other.name}')
-        elif crit == 1:
-            other.health -= self.attack*0.5
-            print(f'{self.name} has dealt {self.attack*0.5} DMG to {other.name}')
-        else:    
-            other.health -= self.attack
-            print(f'{self.name} has dealt {self.attack} DMG to {other.name}')
-    
-    def heal(self):
-        if self.heal_pot_count > 0:
-            rand_heal = random.uniform(1/2, 3/2)
-            healing = self.attack * rand_heal
-            # Ensure health does not exceed max_health
-            self.health = min(self.health + healing, self.max_health)
-            print(f'{self.name} has healed for a total of {int(healing)} HPs')
-            self.heal_pot_count -= 1
-            
+def increment_turn():
+    global turn_count  # Declare turn_count as global to modify the global variable
+    turn_count += 1
 
 def print_grid(player, enemy):
-    header = f"{'Name':<10}{'Damage':<10}{'Health':<10}{'Health Pots':<10}"
-    character_row = f"{player.name:<10}{player.attack:<10}{int(player.health):<10}{player.heal_pot_count:<10}"
-    enemy_row = f"{enemy.name:<10}{enemy.attack:<10}{int(enemy.health):<10}{enemy.heal_pot_count:<10}"
+    header = f"{'Name':<15}{'Damage':<15}{'Health':<15}{'Health Pots':<15}{'Gold':<15}"
+    character_row = f"{player.name:<15}{player.attack:<15}{int(player.health):<15}{player.heal_pot_count:<15}{player.gold:<15}"
+    enemy_row = f"{enemy.name:<15}{enemy.attack:<15}{int(enemy.health):<15}{enemy.heal_pot_count:<15}{enemy.gold:<15}"
     
+    print("\n")
+    print("TURN ", turn_count, " HAS ENDED!")
     print("\n")
     print(header)
     print('-' * len(header))
@@ -65,10 +43,12 @@ def combat(player, enemy):
             continue
         time.sleep(0.5)    
         if enemy.is_alive():
-            if random.choice(["attack", "heal"]) == "attack":
-                enemy.perform_attack(player)
-            else:
+            if turn_count == 1:
+                enemy.perform_attack(player)                
+            elif random.randint(1,3) == 3:
                 enemy.heal()
+            else:
+                enemy.perform_attack(player)
             
         if player.is_alive and not enemy.is_alive():
             print("You WON!")
@@ -78,5 +58,6 @@ def combat(player, enemy):
             time.sleep(0.5)
             print_grid(player, enemy)
             time.sleep(0.5)
+            increment_turn()
             continue
         

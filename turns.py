@@ -36,9 +36,9 @@ def increment_turn():
     turn_count += 1
 
 def print_grid(player, enemy):
-    header = f"{'Name':<15}{'Damage':<15}{'Health':<15}{'Health Pots':<15}{'Gold':<15}"
-    character_row = f"{player.name:<15}{player.attack:<15}{int(player.health):<15}{player.heal_pot_count:<15}{player.gold:<15}"
-    enemy_row = f"{enemy.name:<15}{enemy.attack:<15}{int(enemy.health):<15}{enemy.heal_pot_count:<15}{enemy.gold:<15}"
+    header = f"{'Name':<15}{'Damage':<15}{'Health':<15}{'Mana':<15}{'Health Pots':<15}{'Gold':<15}"
+    character_row = f"{player.name:<15}{player.attack:<15}{int(player.health):<15}{player.mp_count:<15}{player.heal_pot_count:<15}{player.gold:<15}"
+    enemy_row = f"{enemy.name:<15}{enemy.attack:<15}{int(enemy.health):<15}{enemy.mp_count:<15}{enemy.heal_pot_count:<15}{enemy.gold:<15}"
     
     print("\n")
     print("TURN ", turn_count, " HAS ENDED!")
@@ -51,11 +51,13 @@ def print_grid(player, enemy):
     
 def combat(player, enemy):
     while player.is_alive() and enemy.is_alive():
-        action = input("Do you want to (A)ttack or (H)eal?: ")
+        action = input("Do you want to (A)ttack, (H)eal or use a (M)agic?: ")
         if action.lower() == "a":
             player.perform_attack(enemy)
         elif action.lower() == "h":
                 player.heal()
+        elif action.lower() == "m":
+                player.magic_attack(enemy)
         else:
             continue
         time.sleep(0.5)    
@@ -68,6 +70,7 @@ def combat(player, enemy):
                 enemy.perform_attack(player)
             
         if player.is_alive and not enemy.is_alive():
+            player.gold += enemy.gold
             print("You WON!")
             winsound.PlaySound(win_audio_path, winsound.SND_FILENAME)
             travel_to_village()

@@ -73,8 +73,7 @@ def print_ascii_village():
     """
     for line in village_ascii.split('\n'):
         typing_effect(line, 0.005)
-        time.sleep(0.1)  # Adjust the delay as needed
-    
+        
 
 def travel_to_village(player):
     typing_effect(first_welcome)
@@ -101,15 +100,15 @@ def inn_room_rent(character):
 
 def inn(character):
     typing_effect(enter_inn)
-    inn_choice = int(input("Enter the number of the activity you're going to do: "))
-    if inn_choice == 1:
+    inn_choice = input("Enter the number of the activity you're going to do: ")
+    if inn_choice == "1":
         typing_effect(print(innkeeper_choice_answer))
         inn_room_rent(character)
-    elif inn_choice == 2:
+    elif inn_choice == "2":
         # Code for ordering food from the menu
         typing_effect(print(innkeeper_choice_answer))
         pass
-    elif inn_choice == 3:
+    elif inn_choice == "3":
         # Code for buying food to take with you
         typing_effect(print(innkeeper_choice_answer))
         pass
@@ -119,26 +118,26 @@ def inn(character):
 
 
 def player_move_in_village(player):
-    typing_effect(print("Where would you like to go?:"))
+    typing_effect("Where would you like to go?:")
     for place in village_activities:
-        typing_effect(place)
+        print(place)
         time.sleep(0.5)
     while True:
-        choice = int(input("Enter the number of the activity you're going to do: "))
-        if choice == 1:
+        choice = input("Enter the number of the activity you're going to do: ")
+        if choice == "1":
             inn(player)
-        elif choice == 2:
+        elif choice == "2":
             # Code for Blacksmith
             animate_message(message)
-        elif choice == 3:
+        elif choice == "3":
             # Code for Flower Shop
             pass
-        elif choice == 4:
+        elif choice == "4":
             # Code for Guild
             pass
-        elif choice == 5:
+        elif choice == "5":
             # Code for Library
             pass
         else:
-            typing_effect(print("Invalid choice. Please enter a number between 1 and 5."))
+            typing_effect("Invalid choice. Please enter a number between 1 and 5.")
             continue

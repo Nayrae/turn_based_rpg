@@ -33,7 +33,19 @@ class Character:
         for index, spell in enumerate (all_spells, start = 1):   #Show spell grid(name, cost, dmg)
             print(f'{index}. {spell.name} - Mana Cost: {spell.cost}, Damage: {spell.damage}')
         
-        choice = int(input("Which spell would you like to use(Number)?: "))
+
+        while True:
+            try:
+                choice = int(input("Which spell would you like to use(Number)?: "))
+                if choice < 1 or choice > len(all_spells):
+                    print("Invalid input. Please enter a valid number.")
+                    continue
+                break
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
+                # Handle the error, such as asking the user to input again or providing a default value.
+                choice = 0  # Default value or any other appropriate action
+
         selected_spell = all_spells[choice - 1]
         
         if self.mp_count >= selected_spell.cost:

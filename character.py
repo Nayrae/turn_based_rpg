@@ -1,9 +1,7 @@
 ##TODO
 ## make savefile and load with pickle module 
 
-
 import random
-from turns import combat
 from magic import *
 
 class Character:

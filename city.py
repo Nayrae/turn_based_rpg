@@ -7,6 +7,7 @@ import time
 from character import *
 from animations.blacksmith_sign import *
 from animations.dialogue import typing_effect
+
 first_welcome = """
 After vanquishing the last of the dungeon's denizens, you embark on a journey towards civilization. 
 The dense forest gradually thins out, revealing the first signs of human habitation. 
@@ -102,7 +103,7 @@ def inn(character):
     typing_effect(enter_inn)
     inn_choice = input("Enter the number of the activity you're going to do: ")
     if inn_choice == "1":
-        typing_effect(print(innkeeper_choice_answer))
+        typing_effect(innkeeper_choice_answer)
         inn_room_rent(character)
     elif inn_choice == "2":
         # Code for ordering food from the menu

@@ -38,8 +38,8 @@ class Enemy:
         else:
             print(f'{self.name} forgot that they have no more potions, turn wasted!')
 
-goblin = Enemy("Goblin", 30, 5, 0, 0, 10)
-orc = Enemy("Orc", 50, 10, 25, 1, 25)
-troll = Enemy("Troll", 70, 15, 40, 2, 50)
-
-enemies = [goblin, orc, troll]
+#goblin = Enemy("Goblin", 30, 5, 0, 0, 10)
+#orc = Enemy("Orc", 50, 10, 25, 1, 25)
+#troll = Enemy("Troll", 70, 15, 40, 2, 50)
+#
+#enemies = [goblin, orc, troll]

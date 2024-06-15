@@ -15,7 +15,7 @@ import winsound
 from character import *
 from city import *
 from enemy import *
-
+from quest.quest import *
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -32,7 +32,7 @@ win_audio_path = resource_path("win.wav")
 
 
 
-turn_count = 1
+
 
 def increment_turn():
     global turn_count  # Declare turn_count as global to modify the global variable
@@ -51,9 +51,10 @@ def print_grid(player, enemy):
     print(character_row)
     print(enemy_row)
     print("\n")
-    
+
+
 def combat(player, enemy):
-    while player.is_alive() and enemy.is_alive():
+    while player.is_alive() and active_quest.enemy.is_alive():
         action = input("Do you want to (A)ttack, (H)eal or use a (M)agic?: ")
         if action.lower() == "a":
             player.perform_attack(enemy)
@@ -85,4 +86,4 @@ def combat(player, enemy):
             time.sleep(0.5)
             increment_turn()
             continue
-       
+      

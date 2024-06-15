@@ -66,3 +66,9 @@ class Character:
             self.heal_pot_count -= 1
         else:
             print(f'{self.name} forgot that they have no more potions, turn wasted!')
+    
+    def inn_heal(self, max_health, max_mp_count):
+        self.health = self.max_health
+        self.mp_count = self.max_mp_count
+        print(self.health)
+        print(self.mp_count)

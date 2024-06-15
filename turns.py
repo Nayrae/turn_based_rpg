@@ -66,17 +66,17 @@ def combat(player, enemy):
         time.sleep(0.5)    
         if enemy.is_alive():
             if turn_count == 1:
-                enemy.perform_attack(player)                
+                enemy.attack_character(player)                
             elif random.randint(1,3) == 3:
                 enemy.heal()
             else:
-                enemy.perform_attack(player)
+                enemy.attack_character(player)
             
         if player.is_alive and not enemy.is_alive():
             player.gold += enemy.gold
             print("You WON!")
             winsound.PlaySound(win_audio_path, winsound.SND_FILENAME)
-            travel_to_village()
+            break
         elif not player.is_alive():
             print("You LOST!")
         else:

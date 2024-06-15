@@ -2,10 +2,12 @@ import random
 from character import *
 
 class Enemy:
-    def __init__(self, name, health, attack, heal_pot_count, gold):
+    def __init__(self, name, health, attack, mp_count, heal_pot_count, gold):
         self.name = name
         self.health = health
         self.attack = attack
+        self.max_health = health
+        self.mp_count = mp_count
         self.heal_pot_count = heal_pot_count
         self.gold = gold
         
@@ -36,8 +38,8 @@ class Enemy:
         else:
             print(f'{self.name} forgot that they have no more potions, turn wasted!')
 
-goblin = Enemy("Goblin", 30, 5, 0, 10)
-orc = Enemy("Orc", 50, 10, 1, 25)
-troll = Enemy("Troll", 70, 15, 1, 50)
+goblin = Enemy("Goblin", 30, 5, 0, 0, 10)
+orc = Enemy("Orc", 50, 10, 25, 1, 25)
+troll = Enemy("Troll", 70, 15, 40, 2, 50)
 
 enemies = [goblin, orc, troll]

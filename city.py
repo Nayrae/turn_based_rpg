@@ -4,7 +4,7 @@
 ##
 
 import time
-
+from character import *
 
 
 first_welcome = """
@@ -19,6 +19,27 @@ To your left, the warm glow of the Inn invites weary travelers.
 Ahead, the central plaza bustles with villagers, surrounded by the Blacksmith's clangs,
 the subtle scent of the Flower Shop, and the quiet wisdom of the Guild and Library."""
 
+enter_inn = """
+As you push open the heavy wooden door of the Inn, a wave of warmth and the rich aroma of stewed meat and fresh bread envelops you. 
+The Innkeeper, a robust woman with a welcoming smile, notices your arrival and gestures towards a cozy corner by the fireplace.
+
+Innkeeper: Welcome, traveler! You look like you've been on quite the journey. 
+Here at our Inn, you can rest, eat, and replenish your strength. 
+We have rooms available if you need rest, 
+and our kitchen is always open to serve hearty meals that will heal your wounds and restore your spirit. 
+What will it be for you today?:
+    1. "I'd like to rent a room for the night."
+    2. "I'm here to eat. What's on the menu?"
+    3. "I'd like to buy some food to take with me."
+"""
+innkeeper_choice_answer = """The Innkeeper nods at your choice, ready to provide whatever you need to continue your adventures with renewed vigor."""
+
+inn_rest_text = """"
+You enter the cozy room and lay down on the comfortable bed.
+The soft pillows and warm blankets envelop you, easing your tired muscles.
+As you close your eyes, you feel a sense of peace and relaxation wash over you.
+The sound of crackling fire from the fireplace lulls you into a deep and restful sleep.
+You wake up the next morning feeling refreshed and ready to take on new adventures."""
 
 def print_ascii_village():
     village_ascii = r"""
@@ -55,7 +76,7 @@ def print_ascii_village():
         time.sleep(0.1)  # Adjust the delay as needed
     
 
-def travel_to_village():
+def travel_to_village(player):
     for line in first_welcome.split('\n'):
         print(line)
         time.sleep(1)  # Adjust the delay as needed
@@ -69,37 +90,65 @@ def travel_to_village():
     time.sleep(3)
     print_ascii_village()
     time.sleep(1)
-    player_move_in_village()
+    player_move_in_village(player)
 
 village_activities = [
     "1. Inn, rest and heal your wounds (also, there's some good ale)",
     "2. Blacksmith, upgrade your gear or purchase new equipment",
     "3. Flower Shop, buy flowers or special herbs",
     "4. Guild, find friends and accept quests",
-    "5. Library, seek knowledge"
-]
+    "5. Library, seek knowledge"]
 
-def player_move_in_village():
+def inn_room_rent(character):
+    for line in inn_rest_text.split("\n"):
+        print(line)
+    character.inn_heal(character.max_health, character.max_mp_count)
+
+def inn(character):
+    for line in enter_inn.split('\n'):
+        print(line)
+        time.sleep(1)
+    inn_choice = int(input("Enter the number of the activity you're going to do: "))
+    if inn_choice == 1:
+        print(innkeeper_choice_answer)
+        inn_room_rent(character)
+    elif inn_choice == 2:
+        # Code for ordering food from the menu
+        print(innkeeper_choice_answer)
+        pass
+    elif inn_choice == 3:
+        # Code for buying food to take with you
+        print(innkeeper_choice_answer)
+        pass
+    else:
+        print("The innkeeper seems not to understand your gibberish, please select a valid option!")
+        inn(character)  # Call the inn() function again to prompt for a valid choice
+
+
+
+def player_move_in_village(player):
     print("Where would you like to go?:")
     for place in village_activities:
         print(place)
         time.sleep(0.5)
-    choice = input("Enter the number of the activity you're going to do: ")
-    if choice == 1:
-        # Code for Inn
-        pass
-    elif choice == 2:
-        # Code for Blacksmith
-        pass
-    elif choice == 3:
-        # Code for Flower Shop
-        pass
-    elif choice == 4:
-        # Code for Guild
-        pass
-    elif choice == 5:
-        # Code for Library
-        pass
-    else:
-        print("Invalid choice. Please enter a number between 1 and 5.")
-travel_to_village()
+    while True:
+        choice = int(input("Enter the number of the activity you're going to do: "))
+        if choice == 1:
+            inn(player)
+        elif choice == 2:
+            # Code for Blacksmith
+            pass
+        elif choice == 3:
+            # Code for Flower Shop
+            pass
+        elif choice == 4:
+            # Code for Guild
+            pass
+        elif choice == 5:
+            # Code for Library
+            pass
+        else:
+            print("Invalid choice. Please enter a number between 1 and 5.")
+            continue
+
+#player_move_in_village(Character)

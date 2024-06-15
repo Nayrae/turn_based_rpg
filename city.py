@@ -5,8 +5,8 @@
 
 import time
 from character import *
-
-
+from animations.blacksmith_sign import *
+from animations.dialogue import typing_effect
 first_welcome = """
 After vanquishing the last of the dungeon's denizens, you embark on a journey towards civilization. 
 The dense forest gradually thins out, revealing the first signs of human habitation. 
@@ -72,22 +72,18 @@ def print_ascii_village():
         \______________________________________________/
     """
     for line in village_ascii.split('\n'):
-        print(line)
+        typing_effect(line, 0.005)
         time.sleep(0.1)  # Adjust the delay as needed
     
 
 def travel_to_village(player):
-    for line in first_welcome.split('\n'):
-        print(line)
-        time.sleep(1)  # Adjust the delay as needed
+    typing_effect(first_welcome)
     
     time.sleep(0.5)
     
-    for line in first_welcome2.split('\n'):
-        print(line)
-        time.sleep(1)  # Adjust the delay as needed
+    typing_effect(first_welcome2)
     
-    time.sleep(3)
+    time.sleep(2)
     print_ascii_village()
     time.sleep(1)
     player_move_in_village(player)
@@ -100,36 +96,32 @@ village_activities = [
     "5. Library, seek knowledge"]
 
 def inn_room_rent(character):
-    for line in inn_rest_text.split("\n"):
-        print(line)
+    typing_effect(inn_rest_text)
     character.inn_heal(character.max_health, character.max_mp_count)
 
 def inn(character):
-    for line in enter_inn.split('\n'):
-        print(line)
-        time.sleep(1)
+    typing_effect(enter_inn)
     inn_choice = int(input("Enter the number of the activity you're going to do: "))
     if inn_choice == 1:
-        print(innkeeper_choice_answer)
+        typing_effect(print(innkeeper_choice_answer))
         inn_room_rent(character)
     elif inn_choice == 2:
         # Code for ordering food from the menu
-        print(innkeeper_choice_answer)
+        typing_effect(print(innkeeper_choice_answer))
         pass
     elif inn_choice == 3:
         # Code for buying food to take with you
-        print(innkeeper_choice_answer)
+        typing_effect(print(innkeeper_choice_answer))
         pass
     else:
-        print("The innkeeper seems not to understand your gibberish, please select a valid option!")
+        typing_effect(print("The innkeeper seems not to understand your gibberish, please select a valid option!"))
         inn(character)  # Call the inn() function again to prompt for a valid choice
 
 
-
 def player_move_in_village(player):
-    print("Where would you like to go?:")
+    typing_effect(print("Where would you like to go?:"))
     for place in village_activities:
-        print(place)
+        typing_effect(place)
         time.sleep(0.5)
     while True:
         choice = int(input("Enter the number of the activity you're going to do: "))
@@ -137,7 +129,7 @@ def player_move_in_village(player):
             inn(player)
         elif choice == 2:
             # Code for Blacksmith
-            pass
+            animate_message(message)
         elif choice == 3:
             # Code for Flower Shop
             pass
@@ -148,7 +140,5 @@ def player_move_in_village(player):
             # Code for Library
             pass
         else:
-            print("Invalid choice. Please enter a number between 1 and 5.")
+            typing_effect(print("Invalid choice. Please enter a number between 1 and 5."))
             continue
-
-#player_move_in_village(Character)

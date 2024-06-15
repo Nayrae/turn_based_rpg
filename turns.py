@@ -14,6 +14,8 @@ import time
 import winsound
 from character import *
 from city import *
+from enemy import *
+
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -26,6 +28,7 @@ def resource_path(relative_path):
     return os.path.join(base_path, relative_path)
 
 win_audio_path = resource_path("win.wav")
+
 
 
 

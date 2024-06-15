@@ -12,6 +12,7 @@ class Character:
         self.attack = attack
         self.health = health
         self.max_health = health #stores starting health
+        self.max_mp_count = mp_count #stores max mp
         self.heal_pot_count = healing_potions_count
         self.gold = gold
         self.mp_count = mp_count

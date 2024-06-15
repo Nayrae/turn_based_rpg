@@ -16,7 +16,8 @@ class Character:
         self.heal_pot_count = healing_potions_count
         self.gold = gold
         self.mp_count = mp_count
-    
+        self.storage = {}  # Initialize storage as an empty dictionary
+        
     def has_magic(self):
         if self.mp_count >0:
             return True
@@ -72,3 +73,27 @@ class Character:
         self.mp_count = self.max_mp_count
         print(self.health)
         print(self.mp_count)
+    
+    def add_to_storage(self, item, quantity=1):
+        if item in self.storage:
+            self.storage[item] += quantity
+        else:
+            self.storage[item] = quantity
+        print(f'Added {quantity} {item}(s) to your storage.')
+
+    def remove_to_storage(self, item, quantity=1):
+        if item in self.storage and self.storage[item] >= quantity:
+            self.storage[item] -= quantity
+            if self.storage[item] == 0:
+                del self.storage[item]
+            print(f'Removed {quantity} {item}(s) from your storage.')
+        else:
+            print(f'Not enough {item}(s) in your storage.')
+    
+    def show_storage(self):
+        if self.storage:
+            for item, quantity in self.storage:
+                print(f'{item}: {quantity}')
+            else:
+                print("Storage is empty.")
+            

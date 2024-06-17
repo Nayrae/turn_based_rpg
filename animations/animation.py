@@ -70,4 +70,3 @@ while True:
         time.sleep(0.5)  # Adjust to control the animation speed
 
 
-sleep_animation()

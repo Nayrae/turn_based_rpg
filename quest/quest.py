@@ -3,13 +3,11 @@ import os, sys
 import random 
 import time
 import winsound
-from character import *
+from player_character import *
 from city import *
 from enemy import *
 
 completed_quest_counter = 0
-
-player = Character(input("How do you want to be rememebered?: "), 100, 100, 50, 10, 100)
 
 turn_count = 1
 
@@ -67,8 +65,7 @@ def combat(player, enemy):
             
         if player.is_alive and not enemy.is_alive():
             player.gold += enemy.gold
-            print("You WON!")
-            winsound.PlaySound(win_audio_path, winsound.SND_FILENAME)
+            print(f'You have slain the {enemy.name}!')
             break
         elif not player.is_alive():
             print("You LOST!")
@@ -103,6 +100,7 @@ class Quest:
         global completed_quest_counter
         self.is_completed = True
         completed_quest_counter += 1
+        winsound.PlaySound(win_audio_path, winsound.SND_FILENAME)
         print("Quest completed succesfully!")
     #def start_quest(active_quest):
     #    completed_quest_counter = 0

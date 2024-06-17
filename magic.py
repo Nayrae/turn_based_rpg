@@ -4,7 +4,7 @@
 ## add at least 2 magics per type
 ## 
 
-from character import *
+from player_character import *
 
 class Magic:
     def __init__(self, name, magic_type, cost):

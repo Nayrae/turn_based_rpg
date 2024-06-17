@@ -12,7 +12,7 @@ import os, sys
 import random 
 import time
 import winsound
-from character import *
+from player_character import *
 from city import *
 from enemy import *
 from quest.quest import *

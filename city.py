@@ -4,9 +4,11 @@
 ##
 
 import time
-from character import *
+from player_character import *
 from animations.blacksmith_sign import *
 from animations.dialogue import typing_effect
+from items import *
+from quest.quest import *
 
 first_welcome = """
 After vanquishing the last of the dungeon's denizens, you embark on a journey towards civilization. 
@@ -31,7 +33,6 @@ and our kitchen is always open to serve hearty meals that will heal your wounds 
 What will it be for you today?:
     1. "I'd like to rent a room for the night."
     2. "I'm here to eat. What's on the menu?"
-    3. "I'd like to buy some food to take with me."
 """
 innkeeper_choice_answer = """The Innkeeper nods at your choice, ready to provide whatever you need to continue your adventures with renewed vigor."""
 
@@ -95,74 +96,89 @@ village_activities = [
     "   4. Guild, find friends and accept quests",
     "   5. Library, seek knowledge"]
 
-def inn_room_rent(character):
+def inn_room_rent(player):
     typing_effect(inn_rest_text)
-    character.inn_heal(character.max_health, character.max_mp_count)
+    player.inn_heal(player.max_health, player.max_mp_count)
 
-def order_food(character):
-    food_menu = {
-        "   1": {"name": "Roasted Chicken", "price": 10, "healing": 20},
-        "   2": {"name": "Beef Stew", "price": 15, "healing": 30},
-        "   3": {"name": "Vegetable Soup", "price": 8, "healing": 15},
-        "   4": {"name": "Bread and Cheese", "price": 5, "healing": 10},
-    }
+#def order_food(player):
+#    #item class(self, name, number, description, quantity, price)
+#    bread_and_cheese = Items("Bread and Cheese", "1", "A simple meal of bread and cheese", 1, 5)
+#    pizza = Items("Pizza", "2", "A delicious pizza", 1, 12)
+#    pasta = Items("Pasta", "3", "A plate of pasta", 1, 9)
+#    salad = Items("Salad", "4", "A healthy salad", 1, 6)
+#    
+#    food_menu = [bread_and_cheese, pizza, pasta, salad]
+#    
+#    while True:
+#        print("Here's our menu(Number):")
+#        header = f'{"Number":<10}{"Name":<20}{"Price":15}'
+#        print(header)
+#        for food in food_menu:
+#            food_row = f'{food.number:<10}{food.name:<20}{food.price:<15}'
+#            print(food_row)
+#        
+#        choice = input(f"Enter the number of the food you'd like to order(you still have {player.gold} gold): ")
+#        
+#        selected_item = next((item for item in food_menu if item.number == choice), None)
+#        
+#        if selected_item is not None:
+#            if player.gold >= selected_item.price:
+#                print(f"You have ordered a ", selected_item.name, ".")
+#                player.add_to_storage(selected_item)
+#                break
+#            else:
+#                print("You don't have enough gold for this choice.")
+#                break  # or continue, depending on whether you want to allow trying a different item
+#        else:
+#            print("Invalid choice. Please enter a number from the menu.")
     
-    typing_effect("Here's our menu(Number):")
-    for item in food_menu:
-        typing_effect(f"{item}. {food_menu[item]['name']} - {food_menu[item]['price']} gold")
     
-    choice = input("Enter the number of the food you'd like to order: ")
+def order_food(player):
+    #item class(self, name, number, description, quantity, price)
+    bread_and_cheese = Items("Bread and Cheese", "1", "A simple meal of bread and cheese", 1, 5)
+    pizza = Items("Pizza", "2", "A delicious pizza", 1, 12)
+    pasta = Items("Pasta", "3", "A plate of pasta", 1, 9)
+    salad = Items("Salad", "4", "A healthy salad", 1, 6)
     
-    # Convert choice to integer if food_menu keys are integers
-    try:
-        choice = int(choice)
-    except ValueError:
-        typing_effect("Please enter a valid number.")
-    else:
-        if choice in food_menu:
-            food = food_menu[choice]
-            if character.gold >= food["price"]:
-                character.gold -= food["price"]
-                character.add_to_storage(choice)  # Ensure this method exists and works as expected
+    food_menu = [bread_and_cheese, pizza, pasta, salad]
+    
+    while True:
+        print("Here's our menu(Number):")
+        header = f'   {"Number":<10}{"Name":<20}{"Price":15}'
+        print(header)
+        for food in food_menu:
+            food_row = f'   {food.number:<10}{food.name:<20}{food.price:<15}'
+            print(food_row)
+
+        choice = input(f"Enter the number of the food you'd like to order(you still have {player.gold} gold): ")
+        
+        selected_item = next((item for item in food_menu if item.number == choice), None)
+        
+        if selected_item is not None:
+            if player.gold >= selected_item.price:
+                print(f"You have ordered a ", selected_item.name, ".")
+                player.add_to_storage(selected_item)
+                break
             else:
-                typing_effect("You don't have enough gold to order that.")
+                print("You don't have enough gold for this choice.")
+                break  # or continue, depending on whether you want to allow trying a different item
         else:
-            typing_effect("Invalid choice. Please enter a number from the menu.")
-
-def inn(character):
+            print("Invalid choice. Please enter a number from the menu.")
+    
+            
+def inn(player):
     typing_effect(enter_inn)
     inn_choice = input("Enter the number of the activity you're going to do: ")
     if inn_choice == "1":
         typing_effect(innkeeper_choice_answer)
-        inn_room_rent(character)
+        inn_room_rent(player)
     elif inn_choice == "2":
         # Code for ordering food from the menu
         typing_effect(innkeeper_choice_answer)
-        order_food(character)
-
-        def inn(character):
-            typing_effect(enter_inn)
-            inn_choice = input("Enter the number of the activity you're going to do: ")
-            if inn_choice == "1":
-                typing_effect(innkeeper_choice_answer)
-                inn_room_rent(character)
-            elif inn_choice == "2":
-                order_food(character)
-            elif inn_choice == "3":
-                # Code for buying food to take with you
-                typing_effect(innkeeper_choice_answer)
-                pass
-            else:
-                typing_effect("The innkeeper seems not to understand your gibberish, please select a valid option!")
-                inn(character)  # Call the inn() function again to prompt for a valid choice
-    elif inn_choice == "3":
-        # Code for buying food to take with you
-        typing_effect(innkeeper_choice_answer)
-        pass
+        order_food(player)
     else:
         typing_effect("The innkeeper seems not to understand your gibberish, please select a valid option!")
-        inn(character)  # Call the inn() function again to prompt for a valid choice
-
+        inn(player)  # Call the inn() function again to prompt for a valid choice
 
 def player_move_in_village(player):
     typing_effect("Where would you like to go?:")
@@ -189,3 +205,4 @@ def player_move_in_village(player):
         else:
             typing_effect("Invalid choice. Please enter a number between 1 and 5.")
             continue
+

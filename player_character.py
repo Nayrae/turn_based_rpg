@@ -3,6 +3,8 @@
 
 import random
 from magic import *
+#from city import order_food
+from items import *
 
 class Character:
     def __init__(self, name, health, mp_count, attack, healing_potions_count, gold):
@@ -85,25 +87,29 @@ class Character:
         print(self.mp_count)
     
     def add_to_storage(self, item, quantity=1):
-        if item in self.storage:
+        if item in self.storage:                
             self.storage[item] += quantity
         else:
             self.storage[item] = quantity
-        print(f'Added {quantity} {item}(s) to your storage.')
+        print(f'Added {quantity} {item.name}(s) to your storage.')
 
     def remove_to_storage(self, item, quantity=1):
         if item in self.storage and self.storage[item] >= quantity:
             self.storage[item] -= quantity
             if self.storage[item] == 0:
                 del self.storage[item]
-            print(f'Removed {quantity} {item}(s) from your storage.')
+            print(f'Removed {quantity} {item.name}(s) from your storage.')
         else:
             print(f'Not enough {item}(s) in your storage.')
     
     def show_storage(self):
         if self.storage:
             for item, quantity in self.storage:
-                print(f'{item}: {quantity}')
+                print(f'{item.name}: {quantity}')
             else:
                 print("Storage is empty.")
-            
+                
+player = Character(input("How do you want to be rememebered?: "), 100, 100, 50, 10, gold=100)
+print(type(player))  # Should show <class '__main__.Character'>
+print(hasattr(player, 'gold'))  # Should show True if 'gold' attribute exists
+

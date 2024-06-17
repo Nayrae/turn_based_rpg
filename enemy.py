@@ -1,5 +1,8 @@
+# TODO
+# work on the AI, ex. enemy tries to escape or do other things when on low hp
+# 
 import random 
-from character import *
+from player_character import *
 
 class Enemy:
     def __init__(self, name, health, attack, mp_count, heal_pot_count, gold):

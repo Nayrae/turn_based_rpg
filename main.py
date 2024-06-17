@@ -1,4 +1,4 @@
-from character import Character
+from player_character import *
 from enemy import *
 from city import *
 from quest.quest import *

@@ -2,7 +2,7 @@ from player_character import *
 from enemy import *
 from city import *
 from quest.quest import *
-
+from guild import *
 #  __init__(self, name, health, mp_count, attack, healing_potions_count, gold) #
 
 #enemy = Character("Bruhv", 100, 15, 1, 50, 200)

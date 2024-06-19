@@ -1,7 +1,7 @@
 import sys
 import time
 
-def typing_effect(text, delay=0.02):
+def typing_effect(text, delay=0.015):
     """
     Prints text with a typing effect.
 

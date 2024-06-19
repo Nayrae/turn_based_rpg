@@ -110,6 +110,4 @@ class Character:
                 print("Storage is empty.")
                 
 player = Character(input("How do you want to be rememebered?: "), 100, 100, 50, 10, gold=100)
-print(type(player))  # Should show <class '__main__.Character'>
-print(hasattr(player, 'gold'))  # Should show True if 'gold' attribute exists
 

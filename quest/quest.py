@@ -85,6 +85,9 @@ class Quest:
         self.description = description
         self.enemies = enemies
     
+    def __str__(self):
+        return self.name
+    
     def start(self, player):
         print(self.description)
         for enemy in self.enemies:
@@ -101,27 +104,20 @@ class Quest:
         self.is_completed = True
         completed_quest_counter += 1
         winsound.PlaySound(win_audio_path, winsound.SND_FILENAME)
-        print("Quest completed succesfully!")
-    #def start_quest(active_quest):
-    #    completed_quest_counter = 0
-    #    for enemy in active_quest.enemies:
-    #        combat(player, active_quest.enemies[0])
-    #        if enemy.health <= 0:
-    #            active_quest.enemies.remove(enemy)
-    #            print(f'{enemy.name} defeated!')
-    #        if not active_quest.enemies:
-    #            print(f'Quest "{active_quest.name}" has been completed!')
-    #            completed_quest_counter += 1
+        print(f'Quest {self.name} completed succesfully!')
        
         
 tutorial_enemies = [Enemy("Goblin", 30, 5, 0, 0, 10), Enemy("Orc", 50, 10, 25, 1, 25), Enemy("Troll", 70, 15, 40, 2, 50)]
 enemies = [Enemy("Goblin", 30, 5, 0, 0, 10), Enemy("Troll", 50, 10, 0, 0, 0), Enemy("Dragon", 100, 20, 0, 0, 0)]
+quests = [    
+    Quest("Save the Village", "Defeat the enemies attacking the village.", enemies[:2]),
+    Quest("Dragon Slayer", "Defeat the dragon on the mountain.", [enemies[2]]),
+    Quest("Retrieve the Lost Artifact", "Find and retrieve the ancient artifact hidden in the ruins.", [Enemy("Skeleton", 40, 8, 0, 0, 15), Enemy("Ghost", 60, 12, 30, 1, 30)]),
+    Quest("Rescue the Princess", "Rescue the princess from the evil sorcerer's castle.", [Enemy("Sorcerer", 80, 16, 50, 2, 50), Enemy("Guard", 40, 8, 0, 0, 20)]),
+    Quest("Defend the Kingdom", "Defend the kingdom from the invading army.", [Enemy("Soldier", 50, 10, 0, 0, 10), Enemy("Archer", 30, 6, 0, 0, 15), Enemy("Knight", 70, 14, 0, 0, 25)])
+]
 
 tutorial = Quest("Escape the dungeon alive(optional)", "Defeat the enemies that appear in front of you", tutorial_enemies)
-quest1 = Quest("Save the Village", "Defeat the enemies attacking the village.", enemies[:2])
-quest2 = Quest("Dragon Slayer", "Defeat the dragon on the mountain.", [enemies[2]])
-
-quests = [quest1, quest2]
 
 active_quest = quests
 

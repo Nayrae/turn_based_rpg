@@ -9,6 +9,7 @@ from animations.blacksmith_sign import *
 from animations.dialogue import typing_effect
 from items import *
 from quest.quest import *
+from guild import *
 
 first_welcome = """
 After vanquishing the last of the dungeon's denizens, you embark on a journey towards civilization. 
@@ -100,38 +101,6 @@ def inn_room_rent(player):
     typing_effect(inn_rest_text)
     player.inn_heal(player.max_health, player.max_mp_count)
 
-#def order_food(player):
-#    #item class(self, name, number, description, quantity, price)
-#    bread_and_cheese = Items("Bread and Cheese", "1", "A simple meal of bread and cheese", 1, 5)
-#    pizza = Items("Pizza", "2", "A delicious pizza", 1, 12)
-#    pasta = Items("Pasta", "3", "A plate of pasta", 1, 9)
-#    salad = Items("Salad", "4", "A healthy salad", 1, 6)
-#    
-#    food_menu = [bread_and_cheese, pizza, pasta, salad]
-#    
-#    while True:
-#        print("Here's our menu(Number):")
-#        header = f'{"Number":<10}{"Name":<20}{"Price":15}'
-#        print(header)
-#        for food in food_menu:
-#            food_row = f'{food.number:<10}{food.name:<20}{food.price:<15}'
-#            print(food_row)
-#        
-#        choice = input(f"Enter the number of the food you'd like to order(you still have {player.gold} gold): ")
-#        
-#        selected_item = next((item for item in food_menu if item.number == choice), None)
-#        
-#        if selected_item is not None:
-#            if player.gold >= selected_item.price:
-#                print(f"You have ordered a ", selected_item.name, ".")
-#                player.add_to_storage(selected_item)
-#                break
-#            else:
-#                print("You don't have enough gold for this choice.")
-#                break  # or continue, depending on whether you want to allow trying a different item
-#        else:
-#            print("Invalid choice. Please enter a number from the menu.")
-    
     
 def order_food(player):
     #item class(self, name, number, description, quantity, price)
@@ -197,7 +166,7 @@ def player_move_in_village(player):
             # Code for Flower Shop
             continue
         elif choice == "4":
-            # Code for Guild
+            guild.enter_guild()
             continue
         elif choice == "5":
             # Code for Library
